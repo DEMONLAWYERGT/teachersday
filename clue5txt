@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+// Function to swap two elements in an array
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+// Function to partition the array and return the pivot index
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];  // Choose the pivot as the last element
+    int i = (low - 1);      // Initialize the index of smaller element
+for (int j = low; j <= high - 1; j++) {
+        // If the current element is smaller than or equal to the pivot
+        if (arr[j] <= pivot) {
+            i++;  // Increment index of smaller element
+            swap(&arr[i], &arr[j]);  // Swap arr[i] and arr[j]
+       }}
+    swap(&arr[i + 1], &arr[high]);  // Swap the pivot element with the element at (i + 1)
+    return (i + 1);  // Return the position of the pivot
+}
+// Function to perform Quick Sort
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        // Find pivot element such that
+        // element smaller than pivot are on the left
+        // and elements greater than pivot are on the right
+        int pivot = partition(arr, low, high);
+// Recursively sort the elements before and after pivot
+        quickSort(arr, low, pivot - 1);
+        quickSort(arr, pivot + 1, high);
+    }}// Function to generate a random array of integers
+void generateRandomArray(int arr[], int size, int max_value) {
+    srand(time(NULL));  // Seed the random number generator with the current time
+//Secret key= -.-. --- -- .--. .-.. . - ...-- -.. 
+    for (int i = 0; i < size; i++) {
+        arr[i] = rand() % max_value;  // Generate random numbers between 0 and max_value
+    }}
+int main() {
+    int size = 10;  // Size of the array
+    int arr[size];
+generateRandomArray(arr, size, 100);  // Generate a random array of integers
+printf("Original array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+    quickSort(arr, 0, size - 1);  // Sort the array using Quick Sort
+printf("Sorted array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+return 0;
+}
